@@ -13,7 +13,7 @@ const itemsInCart: ItemInCart[] = [
 
 export function FirstStepsApp() {
     return (
-        <>
+        <div data-testid="div-app">
             <h1>Carrito de compras</h1>
 
             {
@@ -25,6 +25,6 @@ export function FirstStepsApp() {
             {/* <ItemCounter name="Nintendo Switch 2" quantity={2} />
             <ItemCounter name="Pro Controller" quantity={10} />
             <ItemCounter name="Super Smash" quantity={6} /> */}
-        </>
+        </div>
     )
 }
