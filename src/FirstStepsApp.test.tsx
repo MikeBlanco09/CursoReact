@@ -8,7 +8,7 @@ const mockItemCounter = vi.fn((_props: unknown) => {
 
 vi.mock('./shopping-cart/ItemCounter', () => ({
     ItemCounter: (props: unknown) => mockItemCounter(props)
-}))
+}));
 
 // vi.mock('./shopping-cart/ItemCounter', () => ({
 //     ItemCounter: (props: unknown) => <div data-testid="itemCounter" name={props.name} quantity={props.quantity} />
@@ -35,8 +35,6 @@ describe('FirstStepsApp', () => {
 
         expect(itemCounters.length).toBe(3);
 
-        screen.debug();
-
     });
 
     test('should render item counter with correct props', () => {
@@ -44,7 +42,15 @@ describe('FirstStepsApp', () => {
         render(<FirstStepsApp />)
 
         expect(mockItemCounter).toHaveBeenCalledTimes(3);
-
+        expect(mockItemCounter).toHaveBeenCalledWith(
+            { name: 'Nintendo Switch 2', quantity: 1 }
+        );
+        expect(mockItemCounter).toHaveBeenCalledWith(
+            { name: 'Pro Controller', quantity: 2 },
+        );
+        expect(mockItemCounter).toHaveBeenCalledWith(
+            { name: 'Super Smash', quantity: 5 }
+        );
 
     })
 

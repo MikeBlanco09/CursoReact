@@ -21,7 +21,7 @@ describe('MyAwesomeApp', () => {
     test('should render firstName and lastName - screen', () => {
 
         render(<MyAwesomeApp />);
-        screen.debug();
+        // screen.debug();
         // console.log(container.innerHTML);
 
         const h1 = screen.getByTestId('first-name-title');
