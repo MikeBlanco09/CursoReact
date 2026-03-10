@@ -1,28 +1,34 @@
 import { useState } from "react"
 import { GifList } from "./gifs/components/GifList"
 import { PreviousSearches } from "./gifs/components/PreviousSearches"
-import { mockGifs } from "./mock-data/gifs.mock"
 import { CustomHeader } from "./shared/components/CustomHeader"
 import { SearchBar } from "./shared/components/SearchBar"
+import { getGifsByQuery } from "./gifs/actions/get-gifs-by-query.action"
+import type { Gif } from "./gifs/components/interfaces/gif.interface"
 
 export const Gifsapp = () => {
 
-    const [previousTerms, setPreviousTerms] = useState(['dragon ball z'])
+    const [previousTerms, setPreviousTerms] = useState<string[]>([])
+
+    const [gifList, setGifList] = useState<Gif[]>([])
 
     const handleTermClicked = (term: string) => {
         console.log({ term })
     }
 
-    const handleSearch = (query: string) => {
+    const handleSearch = async (query: string) => {
         query = query.trim().toLowerCase();
-        if (query !== '') {
-            if (!previousTerms.includes(query)) {
-                if (previousTerms.length > 7) {
-                    previousTerms.shift();
-                }
-                setPreviousTerms([...previousTerms, query])
-            }
-        }
+
+        if (query.length === 0) return;
+
+        if (previousTerms.includes(query)) return;
+
+        setPreviousTerms([query, ...previousTerms].splice(0, 8));
+
+        const gifs = await getGifsByQuery(query);
+
+        setGifList(gifs);
+
     }
 
     return (
@@ -40,7 +46,7 @@ export const Gifsapp = () => {
             <PreviousSearches searches={previousTerms} onLabelClicked={handleTermClicked} />
 
             {/* Gifs */}
-            <GifList gifs={mockGifs} />
+            <GifList gifs={gifList} />
 
 
         </>
