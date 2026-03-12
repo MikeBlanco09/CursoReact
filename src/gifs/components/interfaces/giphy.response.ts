@@ -93,13 +93,9 @@ export interface FixedHeight {
     hash?: string;
 }
 
-export enum Rating {
-    G = "g",
-}
+export type Rating = 'G' | 'PG';
 
-export enum Type {
-    GIF = "gif",
-}
+export type Type = 'gif';
 
 export interface Meta {
     status: number;
